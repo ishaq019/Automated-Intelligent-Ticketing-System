@@ -11,13 +11,16 @@
 
   <style>
     :root{
-      --bg: #000;                 /* clean black like your image */
+      /* PREVIOUS BACKGROUND COLORS (gradient) */
+      --bg1:#070A14;
+      --bg2:#0B1224;
+
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.65);
-      --border: rgba(255,255,255,.10);
+      --border: rgba(255,255,255,.12);
 
-      --size: clamp(140px, 38vw, 280px);  /* responsive loader size */
-      --stroke: clamp(16px, 4vw, 34px);   /* thick arc */
+      --size: clamp(140px, 38vw, 280px);
+      --stroke: clamp(16px, 4vw, 34px);
     }
 
     /* hide scrollbar */
@@ -27,9 +30,15 @@
     html,body{ height:100%; }
     body{
       margin:0;
-      background: var(--bg);
-      color: var(--text);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color: var(--text);
+
+      /* BACK TO PREVIOUS GRADIENT LOOK */
+      background:
+        radial-gradient(900px 500px at 30% 20%, rgba(124,58,237,.22), transparent 60%),
+        radial-gradient(900px 500px at 70% 30%, rgba(6,182,212,.18), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+
       display:grid;
       place-items:center;
       padding: 24px;
@@ -44,17 +53,17 @@
       gap: 14px;
     }
 
-    /* optional subtle card to improve UX readability on pure black */
     .card{
       width: 100%;
       padding: clamp(18px, 4.8vw, 28px);
       border-radius: 18px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,.03);
+      background: rgba(255,255,255,.05);
       backdrop-filter: blur(10px);
+      box-shadow: 0 18px 60px rgba(0,0,0,.38);
     }
 
-    /* ---------- Loader (matches image) ---------- */
+    /* ---------- Loader (same as before) ---------- */
     .loader{
       width: var(--size);
       height: var(--size);
@@ -64,23 +73,19 @@
       animation: spin 1.05s linear infinite;
       filter: drop-shadow(0 18px 45px rgba(255,255,255,.06));
     }
-
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* SVG styling */
     .loader svg{ width:100%; height:100%; display:block; }
     .arc{
       fill: none;
       stroke: url(#g);
       stroke-width: var(--stroke);
-      stroke-linecap: round; /* rounded ends like image */
-      /* Create the "single arc" by dashing the circle */
-      stroke-dasharray: 210 440; /* arc length + gap length (tweak if needed) */
+      stroke-linecap: round;
+      stroke-dasharray: 210 440; /* arc + gap */
       stroke-dashoffset: 10;
       opacity: .95;
     }
 
-    /* text */
     h1{
       margin: 0;
       font-size: clamp(18px, 2.6vw, 26px);
@@ -100,27 +105,27 @@
       gap: 10px;
       padding: 9px 12px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
       color: rgba(255,255,255,.75);
       font-size: 12px;
     }
     .dot{
       width: 9px; height: 9px;
       border-radius: 50%;
-      background: rgba(255,255,255,.75);
-      box-shadow: 0 0 0 6px rgba(255,255,255,.08);
+      background: rgba(245,158,11,.95);
+      box-shadow: 0 0 0 6px rgba(245,158,11,.12);
       animation: pulse 1.2s ease-in-out infinite;
     }
     @keyframes pulse{
       0%,100%{ transform: scale(1); opacity: .9; }
-      50%{ transform: scale(1.2); opacity: .6; }
+      50%{ transform: scale(1.2); opacity: .65; }
     }
 
     .foot{
       margin-top: 10px;
       font-size: 12px;
-      color: rgba(255,255,255,.45);
+      color: rgba(255,255,255,.50);
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -135,15 +140,12 @@
       <div class="loader" aria-hidden="true">
         <svg viewBox="0 0 200 200" role="img" aria-label="Loading">
           <defs>
-            <!-- Subtle white-to-grey gradient like your image -->
             <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%"  stop-color="#ffffff" stop-opacity="0.95"/>
               <stop offset="55%" stop-color="#d9d9d9" stop-opacity="0.75"/>
               <stop offset="100%" stop-color="#9a9a9a" stop-opacity="0.45"/>
             </linearGradient>
           </defs>
-
-          <!-- Circle path, but shown as a thick arc using dasharray -->
           <circle class="arc" cx="100" cy="100" r="70"></circle>
         </svg>
       </div>
